@@ -94,11 +94,38 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
         handleToolbar()
         setUpRecyclerViewAdapter()
         handleSearchWidget()
+        handleAddProduct()
         binding.swipeRefreshHomePageMessages.setOnRefreshListener {
             fetchAllProducts(fromServer = true)
             binding.swipeRefreshHomePageMessages.isRefreshing = false
         }
         fetchAllProducts(fromServer = false)
+    }
+
+    private fun handleAddProduct() {
+
+        //open bottom sheet to add product
+
+
+        //listner from BS, if added product then call addProduct method of adapter
+
+
+
+
+
+
+
+
+        binding.fabAddProduct.setOnClickListener {
+            val productItem = ProductItem(
+                product_name = "Sumit",
+                product_type = "human",
+                tax = 10.0,
+                price = 100.0,
+                image = ""
+            )
+            productDetailsAdapter?.addProduct(productItem)
+        }
     }
 
     private fun handleToolbar() {

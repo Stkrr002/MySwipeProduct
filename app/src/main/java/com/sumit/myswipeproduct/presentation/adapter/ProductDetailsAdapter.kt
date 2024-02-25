@@ -55,6 +55,11 @@ class ProductDetailsAdapter(
         notifyDataSetChanged()
     }
 
+    fun addProduct(productItem: ProductItem) {
+        productItems?.add(productItem)
+        notifyItemInserted(productItems?.size ?: 0)
+    }
+
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
