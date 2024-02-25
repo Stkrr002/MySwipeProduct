@@ -12,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sumit.myswipeproduct.R
+import com.sumit.myswipeproduct.Utils.showNotification
 import com.sumit.myswipeproduct.connectivitychecker.ConnectivityChangeListener
 import com.sumit.myswipeproduct.connectivitychecker.NetworkChangeReceiver
 import com.sumit.myswipeproduct.databinding.FragmentHomeScreenBinding
@@ -107,8 +108,8 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
     private fun handleAddProduct() {
 
         binding.fabAddProduct.setOnClickListener {
-
-            showAddProductBottomSheet()
+            showNotification(requireContext(), "Add Product", "Add Product Clicked",requireActivity())
+        //    showAddProductBottomSheet()
 
         }
 
