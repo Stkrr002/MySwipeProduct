@@ -11,25 +11,91 @@
         android:id="@+id/tvHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:background="@drawable/rounded_rectangle"
         android:gravity="center"
         android:padding="15dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"
         android:text="Product added Successfully"
         android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="start"
+                android:padding="5dp"
+                android:text="Product Name : AAloo"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvProductType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="start"
+                android:padding="5dp"
+                android:text="Product Name : AAloo"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvProductPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="start"
+                android:padding="5dp"
+                android:text="Product Name : AAloo"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvProductTax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="start"
+                android:padding="5dp"
+                android:text="Product Name : AAloo"
+                android:textColor="@color/black" />
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 
     <TextView
         android:id="@+id/tvOkay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/rounded_rectangle"
         android:gravity="center"
         android:padding="15dp"
+        android:layout_margin="8dp"
         android:text="Okay"
         android:textColor="@color/black" />
 </LinearLayout>
