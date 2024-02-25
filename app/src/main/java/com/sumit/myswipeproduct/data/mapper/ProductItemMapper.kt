@@ -13,6 +13,14 @@ fun ProductDetailsDto.toProductItem() = ProductItem(
     image = image
 )
 
+fun ProductItem.toProductDetailsDto() = ProductDetailsDto(
+    product_name = product_name,
+    product_type = product_type,
+    tax = tax,
+    price = price,
+    image = image
+)
+
 
 fun ProductItemEntity.toProductItem() = ProductItem(
     product_name = product_name,

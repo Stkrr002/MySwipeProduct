@@ -42,7 +42,7 @@ class ProductDetailsAdapter(
                 tvProductType.text = productData.product_type
                 tvTax.text = productData.tax?.toString()
 
-                productData.image?.takeIf { it.isNotEmpty() }?.let {
+                productData.image.takeIf { it.isNotEmpty() }?.let {
                     ivProductImage.load(it)
                 }
             }

@@ -35,4 +35,17 @@ class HomeScreenViewModel @Inject constructor(
     }
 
 
+    fun addProduct(productName: String, productPrice: String, productTax: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val productItem = ProductItem(
+                product_name = productName,
+                product_type = "product",
+                price = productPrice.toDouble()  ,
+                tax = productTax.toDouble()
+            )
+            homeScreenRepository.addProduct(productItem)
+        }
+    }
+
+
 }

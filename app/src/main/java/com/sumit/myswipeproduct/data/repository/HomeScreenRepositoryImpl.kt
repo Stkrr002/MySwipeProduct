@@ -3,6 +3,7 @@ package com.sumit.myswipeproduct.data.repository
 import android.content.Context
 import com.sumit.myswipeproduct.R
 import com.sumit.myswipeproduct.data.local.ProductItemDao
+import com.sumit.myswipeproduct.data.mapper.toProductDetailsDto
 import com.sumit.myswipeproduct.data.mapper.toProductEntityListGeneric
 import com.sumit.myswipeproduct.data.mapper.toProductItemListGeneric
 import com.sumit.myswipeproduct.data.remote.ApiServices
@@ -48,6 +49,19 @@ class HomeScreenRepositoryImpl @Inject constructor(
         }
         return APIResponse.Error(context.getString(R.string.no_data_found))
     }
+
+    override suspend fun addProduct(productItem: ProductItem): APIResponse<String> {
+        return responseHandler.callAPI {
+            apiServices.addProduct(
+                productItem.product_name,
+                productItem.product_type,
+                productItem.tax,
+                productItem.price,
+                productItem.image
+            )
+        }
+    }
+
 
 }
 

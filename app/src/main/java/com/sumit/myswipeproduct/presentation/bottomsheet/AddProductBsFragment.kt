@@ -1,7 +1,6 @@
 package com.sumit.myswipeproduct.presentation.bottomsheet
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,11 +42,28 @@ class AddProductBsFragment : BottomSheetDialogFragment() {
     }
 
     private fun bindViews() {
+        binding.tvSubmit.setOnClickListener {
+            val productName = binding.etProductName.text.toString()
+            val productPrice = binding.etSellingPrice.text.toString()
+            val productTax = binding.etTAx.text.toString()
 
+            if (productName.isNotEmpty() && productPrice.isNotEmpty() && productTax.isNotEmpty() ) {
+                homeScreenViewModel.addProduct(
+                    productName,
+                    productPrice,
+                    productTax
+                )
+            }
+        }
     }
 
     companion object {
         fun newInstance() = AddProductBsFragment()
+    }
+
+    interface AddProductListener {
+        fun onProductAddedSuccess()
+        fun onProductAddedFailure()
     }
 
 }
