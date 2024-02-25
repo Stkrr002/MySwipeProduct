@@ -91,6 +91,7 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
     }
 
     private fun bindViews() {
+        handleToolbar()
         setUpRecyclerViewAdapter()
         handleSearchWidget()
         binding.swipeRefreshHomePageMessages.setOnRefreshListener {
@@ -98,6 +99,10 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
             binding.swipeRefreshHomePageMessages.isRefreshing = false
         }
         fetchAllProducts(fromServer = false)
+    }
+
+    private fun handleToolbar() {
+        binding.actionToolbarHomePage.title = resources.getString(R.string.app_name)
     }
 
     private fun handleSearchWidget() {
