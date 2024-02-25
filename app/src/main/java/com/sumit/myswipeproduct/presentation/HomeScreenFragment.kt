@@ -2,12 +2,14 @@ package com.sumit.myswipeproduct.presentation
 
 import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -108,9 +110,7 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
     private fun handleAddProduct() {
 
         binding.fabAddProduct.setOnClickListener {
-            showNotification(requireContext(), "Add Product", "Add Product Clicked",requireActivity())
-        //    showAddProductBottomSheet()
-
+             showAddProductBottomSheet()
         }
 
 
@@ -131,6 +131,7 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
 
                 if (data != null) {
                     productDetailsAdapter?.addProduct(data)
+                    showNotification(requireContext(), "Product Added", "Congratulations!!, ${data.product_name} is added in the list",requireActivity())
                     showProductAddStatus(data)
                 }
             }
