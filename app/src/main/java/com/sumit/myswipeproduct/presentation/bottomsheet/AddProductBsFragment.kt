@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sumit.myswipeproduct.R
@@ -138,7 +139,6 @@ class AddProductBsFragment(private val listener: AddProductListener) : BottomShe
 
     private fun addProduct() {
 
-        //todo create function to validate all fields
         val productName = binding.etProductName.text?.toString()
         val productPrice = binding.etSellingPrice.text?.toString()
         val productTax = binding.etTAx.text?.toString()
@@ -153,6 +153,8 @@ class AddProductBsFragment(private val listener: AddProductListener) : BottomShe
                 productType,
                 productImage
             )
+        }else{
+            Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()
         }
     }
 
