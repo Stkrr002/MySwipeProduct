@@ -6,5 +6,5 @@ import com.sumit.myswipeproduct.responsehandler.APIResponse
 interface HomeScreenRepository {
     suspend fun getAllProducts(fromServer:Boolean): APIResponse<List<ProductItem?>?>
 
-    suspend fun addProduct(productItem: ProductItem):APIResponse<String>
+    suspend fun addProduct(productItem: ProductItem):APIResponse<ProductItem?>
 }

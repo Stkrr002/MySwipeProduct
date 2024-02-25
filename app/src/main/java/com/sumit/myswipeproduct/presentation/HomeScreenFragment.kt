@@ -15,7 +15,6 @@ import com.sumit.myswipeproduct.R
 import com.sumit.myswipeproduct.connectivitychecker.ConnectivityChangeListener
 import com.sumit.myswipeproduct.connectivitychecker.NetworkChangeReceiver
 import com.sumit.myswipeproduct.databinding.FragmentHomeScreenBinding
-import com.sumit.myswipeproduct.domain.model.ProductItem
 import com.sumit.myswipeproduct.presentation.adapter.ProductDetailsAdapter
 import com.sumit.myswipeproduct.presentation.bottomsheet.AddProductBsFragment
 import com.sumit.myswipeproduct.responsehandler.APIResponse
@@ -105,19 +104,44 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
 
     private fun handleAddProduct() {
 
-        //open bottom sheet to add product
-
         binding.fabAddProduct.setOnClickListener {
-            val addProductBsFragment = AddProductBsFragment.newInstance()
-            addProductBsFragment.show(
-                childFragmentManager,
-                "AddProductBsFragment"
-            )
+
+            showAddProductBottomSheet()
+
         }
 
 
-        //listner from BS, if added product then call addProduct method of adapter
+    }
 
+    private fun showAddProductBottomSheet() {
+        val addProductListener = getAddProductListener()
+        val addProductBsFragment = AddProductBsFragment.newInstance(addProductListener)
+        addProductBsFragment.show(
+            childFragmentManager,
+            "AddProductBsFragment"
+        )
+    }
+
+    private fun getAddProductListener(): AddProductBsFragment.AddProductListener {
+        return object : AddProductBsFragment.AddProductListener {
+            override fun onProductAddedSuccess() {
+                Toast.makeText(
+                    requireContext(),
+                    "added",
+                    Toast.LENGTH_SHORT
+                ).show()
+                //   productDetailsAdapter?.addProduct(ProductItem())
+            }
+
+            override fun onProductAddedFailure(message: String?) {
+                Toast.makeText(
+                    requireContext(),
+                    message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        }
     }
 
     private fun handleToolbar() {

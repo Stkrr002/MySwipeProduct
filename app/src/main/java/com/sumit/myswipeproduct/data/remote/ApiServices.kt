@@ -1,5 +1,6 @@
 package com.sumit.myswipeproduct.data.remote
 
+import com.sumit.myswipeproduct.data.remote.dto.ProductAddedResponseDto
 import com.sumit.myswipeproduct.data.remote.dto.ProductDetailsDto
 import retrofit2.Response
 import retrofit2.http.Body
@@ -20,5 +21,5 @@ interface ApiServices {
         @Field("tax") tax: Double?,
         @Field("price") price: Double?,
         @Field("image") image: String?
-    ): Response<String>
+    ): Response<ProductAddedResponseDto>
 }

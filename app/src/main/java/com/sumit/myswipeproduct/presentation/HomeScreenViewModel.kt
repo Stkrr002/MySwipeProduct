@@ -9,6 +9,7 @@ import com.sumit.myswipeproduct.domain.repository.HomeScreenRepository
 import com.sumit.myswipeproduct.responsehandler.APIResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,6 +25,12 @@ class HomeScreenViewModel @Inject constructor(
         get() = _productDataList
 
 
+    private val _addProductData =
+        MutableLiveData<APIResponse<ProductItem?>>()
+    val addProductData: LiveData<APIResponse<ProductItem?>>
+        get() = _addProductData
+
+
     fun getProductDataList(fromServer: Boolean) {
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -37,13 +44,16 @@ class HomeScreenViewModel @Inject constructor(
 
     fun addProduct(productName: String, productPrice: String, productTax: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            _addProductData.postValue(APIResponse.Loading())
+            delay(3000)
             val productItem = ProductItem(
                 product_name = productName,
                 product_type = "product",
-                price = productPrice.toDouble()  ,
+                price = productPrice.toDouble(),
                 tax = productTax.toDouble()
             )
-            homeScreenRepository.addProduct(productItem)
+            val response = homeScreenRepository.addProduct(productItem)
+            _addProductData.postValue(response)
         }
     }
 

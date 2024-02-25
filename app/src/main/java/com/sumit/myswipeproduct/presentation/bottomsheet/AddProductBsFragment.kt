@@ -9,10 +9,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sumit.myswipeproduct.R
 import com.sumit.myswipeproduct.databinding.FragmentAddProductBsBinding
 import com.sumit.myswipeproduct.presentation.HomeScreenViewModel
+import com.sumit.myswipeproduct.responsehandler.APIResponse
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddProductBsFragment : BottomSheetDialogFragment() {
+class AddProductBsFragment(private val listener: AddProductListener) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentAddProductBsBinding? = null
     private val binding get() = _binding!!
@@ -38,32 +39,56 @@ class AddProductBsFragment : BottomSheetDialogFragment() {
     }
 
     private fun bindObservers() {
+        homeScreenViewModel.addProductData.observe(viewLifecycleOwner) {
+            when (it) {
+                is APIResponse.Loading -> {
+                    binding.progressBarLayoutLoader.visibility = View.VISIBLE
+                }
+
+                is APIResponse.Success -> {
+                    binding.progressBarLayoutLoader.visibility = View.GONE
+                    listener.onProductAddedSuccess()
+                    dismiss()
+                }
+
+                is APIResponse.Error -> {
+                    binding.progressBarLayoutLoader.visibility = View.GONE
+                    listener.onProductAddedFailure(it.message)
+                }
+            }
+        }
 
     }
 
     private fun bindViews() {
         binding.tvSubmit.setOnClickListener {
-            val productName = binding.etProductName.text.toString()
-            val productPrice = binding.etSellingPrice.text.toString()
-            val productTax = binding.etTAx.text.toString()
+            addProduct()
+        }
+    }
 
-            if (productName.isNotEmpty() && productPrice.isNotEmpty() && productTax.isNotEmpty() ) {
-                homeScreenViewModel.addProduct(
-                    productName,
-                    productPrice,
-                    productTax
-                )
-            }
+    private fun addProduct() {
+
+        //todo create function to validate all fields
+        val productName = binding.etProductName.text.toString()
+        val productPrice = binding.etSellingPrice.text.toString()
+        val productTax = binding.etTAx.text.toString()
+
+        if (productName.isNotEmpty() && productPrice.isNotEmpty() && productTax.isNotEmpty()) {
+            homeScreenViewModel.addProduct(
+                productName,
+                productPrice,
+                productTax
+            )
         }
     }
 
     companion object {
-        fun newInstance() = AddProductBsFragment()
+        fun newInstance(listener: AddProductListener) = AddProductBsFragment(listener)
     }
 
     interface AddProductListener {
         fun onProductAddedSuccess()
-        fun onProductAddedFailure()
+        fun onProductAddedFailure(message: String?)
     }
 
 }

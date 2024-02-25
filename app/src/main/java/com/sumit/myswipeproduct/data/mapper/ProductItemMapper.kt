@@ -1,6 +1,7 @@
 package com.sumit.myswipeproduct.data.mapper
 
 import com.sumit.myswipeproduct.data.local.ProductItemEntity
+import com.sumit.myswipeproduct.data.remote.dto.ProductAddedResponseDto
 import com.sumit.myswipeproduct.data.remote.dto.ProductDetailsDto
 import com.sumit.myswipeproduct.domain.model.ProductItem
 
@@ -36,6 +37,14 @@ fun ProductItem.toProductItemEntity() = ProductItemEntity(
     tax = tax,
     price = price,
     image = image
+)
+
+fun ProductAddedResponseDto.toProductItem() = ProductItem(
+    product_name = product_details?.product_name,
+    product_type = product_details?.product_type,
+    tax = product_details?.tax,
+    price = product_details?.price,
+    image = product_details?.image?: ""
 )
 
 fun <E> List<E?>?.toProductItemListGeneric(): List<ProductItem?> {
