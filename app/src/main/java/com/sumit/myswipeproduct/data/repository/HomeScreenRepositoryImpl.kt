@@ -79,7 +79,7 @@ class HomeScreenRepositoryImpl @Inject constructor(
         if (productImage != null) {
             val requestFile = productImage.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             val body =
-                MultipartBody.Part.createFormData("image", productImage.name, requestFile)
+                MultipartBody.Part.createFormData("files[]", productImage.name, requestFile)
             productImageRes.add(body)
         }
         return productImageRes
