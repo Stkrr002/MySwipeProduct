@@ -44,7 +44,7 @@ class ProductDetailsAdapter(
                 tvTax.text = productData.tax?.toString()
 
                 if (productData.image.isEmpty()) {
-                    ivProductImage.load(R.drawable.ic_products_wine)
+                    ivProductImage.setImageResource(R.drawable.ic_products_wine)
                 } else {
                     ivProductImage.load(productData.image)
                 }
