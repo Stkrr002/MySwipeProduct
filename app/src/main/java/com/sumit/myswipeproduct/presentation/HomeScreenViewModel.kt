@@ -10,6 +10,7 @@ import com.sumit.myswipeproduct.responsehandler.APIResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -45,7 +46,8 @@ class HomeScreenViewModel @Inject constructor(
         productName: String,
         productPrice: String,
         productTax: String,
-        productType: String
+        productType: String,
+        productImage: File?
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             _addProductData.postValue(APIResponse.Loading())
@@ -53,9 +55,9 @@ class HomeScreenViewModel @Inject constructor(
                 product_name = productName,
                 product_type = productType,
                 price = productPrice.toDouble(),
-                tax = productTax.toDouble()
+                tax = productTax.toDouble(),
             )
-            val response = homeScreenRepository.addProduct(productItem)
+            val response = homeScreenRepository.addProduct(productItem, productImage)
             _addProductData.postValue(response)
         }
     }

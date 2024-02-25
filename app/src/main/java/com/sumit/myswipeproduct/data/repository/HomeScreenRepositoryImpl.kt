@@ -3,7 +3,6 @@ package com.sumit.myswipeproduct.data.repository
 import android.content.Context
 import com.sumit.myswipeproduct.R
 import com.sumit.myswipeproduct.data.local.ProductItemDao
-import com.sumit.myswipeproduct.data.mapper.toProductDetailsDto
 import com.sumit.myswipeproduct.data.mapper.toProductEntityListGeneric
 import com.sumit.myswipeproduct.data.mapper.toProductItem
 import com.sumit.myswipeproduct.data.mapper.toProductItemListGeneric
@@ -14,6 +13,10 @@ import com.sumit.myswipeproduct.domain.repository.HomeScreenRepository
 import com.sumit.myswipeproduct.responsehandler.APIResponse
 import com.sumit.myswipeproduct.responsehandler.ResponseHandler
 import com.sumit.myswipeproduct.responsehandler.map
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 import javax.inject.Inject
 
 class HomeScreenRepositoryImpl @Inject constructor(
@@ -51,20 +54,35 @@ class HomeScreenRepositoryImpl @Inject constructor(
         return APIResponse.Error(context.getString(R.string.no_data_found))
     }
 
-    override suspend fun addProduct(productItem: ProductItem): APIResponse<ProductItem?> {
+    override suspend fun addProduct(
+        productItem: ProductItem,
+        productImage: File?
+    ): APIResponse<ProductItem?> {
+        val productImageRes = getProductImageMultipart(productImage)
         val result = responseHandler.callAPI {
             apiServices.addProduct(
                 productItem.product_name,
                 productItem.product_type,
                 productItem.tax,
                 productItem.price,
-                productItem.image
+                productImageRes
             )
         }
 
         return result.map {
             it.toProductItem()
         }
+    }
+
+    private fun getProductImageMultipart(productImage: File?): List<MultipartBody.Part> {
+        val productImageRes = mutableListOf<MultipartBody.Part>()
+        if (productImage != null) {
+            val requestFile = productImage.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val body =
+                MultipartBody.Part.createFormData("image", productImage.name, requestFile)
+            productImageRes.add(body)
+        }
+        return productImageRes
     }
 
 

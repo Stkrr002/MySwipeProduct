@@ -1,6 +1,10 @@
 package com.sumit.myswipeproduct.presentation.bottomsheet
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +17,10 @@ import com.sumit.myswipeproduct.domain.model.ProductItem
 import com.sumit.myswipeproduct.presentation.HomeScreenViewModel
 import com.sumit.myswipeproduct.responsehandler.APIResponse
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 
 @AndroidEntryPoint
 class AddProductBsFragment(private val listener: AddProductListener) : BottomSheetDialogFragment() {
@@ -21,6 +29,8 @@ class AddProductBsFragment(private val listener: AddProductListener) : BottomShe
     private val binding get() = _binding!!
 
     private val homeScreenViewModel: HomeScreenViewModel by viewModels()
+
+    private var selectedImageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,10 +87,33 @@ class AddProductBsFragment(private val listener: AddProductListener) : BottomShe
 
     private fun bindViews() {
         handleProductTypeSpinner()
+        handleProductImageWidget()
         binding.tvSubmit.setOnClickListener {
             addProduct()
         }
     }
+
+    private fun handleProductImageWidget() {
+        binding.ivProductImage.setOnClickListener {
+            openGalleryForImage()
+        }
+    }
+
+    private fun openGalleryForImage() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_PICK_IMAGE) {
+            data?.data?.let { uri ->
+                selectedImageUri = uri
+                binding.ivProductImage.setImageURI(selectedImageUri)
+            }
+        }
+    }
+
 
     private fun handleProductTypeSpinner() {
         val productTypeList = getProductTypes()
@@ -106,18 +139,47 @@ class AddProductBsFragment(private val listener: AddProductListener) : BottomShe
         val productPrice = binding.etSellingPrice.text?.toString()
         val productTax = binding.etTAx.text?.toString()
         val productType = binding.actProductType.text?.toString()
+        val productImage = selectedImageUri?.let { getImageFile(it) }
 
         if (productName?.isNotEmpty() == true && productPrice?.isNotEmpty() == true && productTax?.isNotEmpty() == true && productType?.isNotEmpty() == true) {
             homeScreenViewModel.addProduct(
                 productName,
                 productPrice,
                 productTax,
-                productType
+                productType,
+                productImage
             )
         }
     }
 
+    private fun getImageFile(uri: Uri): File? {
+        val context = requireContext()
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val fileName = "image${System.currentTimeMillis()}.jpg"
+
+        inputStream?.use { input ->
+            val file = File(context.cacheDir, fileName)
+            file.outputStream().use { output ->
+                input.copyTo(output)
+                return file
+            }
+        }
+
+        return null
+    }
+
+    private fun getProductImage(selectedImageUri: Uri?): MultipartBody.Part? {
+        selectedImageUri?.let { uri ->
+            val file = uri.path?.let { File(it) }
+            val requestFile =
+                file?.let { it.asRequestBody("multipart/form-data".toMediaTypeOrNull()) }
+            return requestFile?.let { MultipartBody.Part.createFormData("image", file.name, it) }
+        }
+        return null
+    }
+
     companion object {
+        const val REQUEST_CODE_PICK_IMAGE = 100
         fun newInstance(listener: AddProductListener) = AddProductBsFragment(listener)
     }
 
