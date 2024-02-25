@@ -107,8 +107,7 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
 
         //open bottom sheet to add product
 
-        binding.actionToolbarHomePage.setOnClickListener {
-            Toast.makeText(requireContext(), "Add Product", Toast.LENGTH_SHORT).show()
+        binding.fabAddProduct.setOnClickListener {
             val addProductBsFragment = AddProductBsFragment.newInstance()
             addProductBsFragment.show(
                 childFragmentManager,
@@ -119,23 +118,6 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
 
         //listner from BS, if added product then call addProduct method of adapter
 
-
-
-
-
-
-
-
-        binding.fabAddProduct.setOnClickListener {
-            val productItem = ProductItem(
-                product_name = "Sumit",
-                product_type = "human",
-                tax = 10.0,
-                price = 100.0,
-                image = ""
-            )
-            productDetailsAdapter?.addProduct(productItem)
-        }
     }
 
     private fun handleToolbar() {
