@@ -72,7 +72,7 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
                         handleLoading(false)
                         Toast.makeText(
                             requireContext(),
-                            resources.getString(R.string.no_data_found),
+                            resources.getString(R.string.no_new_data_found),
                             Toast.LENGTH_SHORT
                         ).show()
                     }

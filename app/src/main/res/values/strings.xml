@@ -3,5 +3,6 @@
     <string name="text_something_went_wrong_error">Something went wrong. Please try again later.</string>
     <string name="no_internet">No Internet</string>
     <string name="no_data_found">No data found</string>
+    <string name="no_new_data_found">No new data found</string>
     <string name="visibility_format">Visibility: %d m</string>
 </resources>
