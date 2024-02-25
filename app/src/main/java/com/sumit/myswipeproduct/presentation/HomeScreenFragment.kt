@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sumit.myswipeproduct.R
@@ -91,12 +92,22 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
 
     private fun bindViews() {
         setUpRecyclerViewAdapter()
+        handleSearchWidget()
         binding.swipeRefreshHomePageMessages.setOnRefreshListener {
             fetchAllProducts(fromServer = true)
             binding.swipeRefreshHomePageMessages.isRefreshing = false
         }
         fetchAllProducts(fromServer = false)
     }
+
+    private fun handleSearchWidget() {
+        binding.etSearchProducts.addTextChangedListener(
+            onTextChanged = { text, _, _, _ ->
+                productDetailsAdapter?.filter?.filter(text)
+            }
+        )
+    }
+
 
     private fun setUpRecyclerViewAdapter() {
         productDetailsAdapter = ProductDetailsAdapter(mutableListOf())

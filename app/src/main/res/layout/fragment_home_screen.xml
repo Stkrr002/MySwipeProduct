@@ -30,7 +30,7 @@
         android:visibility="visible">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/etSearchIndents"
+            android:id="@+id/etSearchProducts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
