@@ -103,7 +103,7 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
     private fun handleSearchWidget() {
         binding.etSearchProducts.addTextChangedListener(
             onTextChanged = { text, _, _, _ ->
-                productDetailsAdapter?.filter?.filter(text)
+                    productDetailsAdapter?.filter?.filter(text)
             }
         )
     }

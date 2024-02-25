@@ -15,6 +15,7 @@ class ProductDetailsAdapter(
 
     private var productItems: MutableList<ProductItem?>? = items
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductDetailsViewHolder {
         val binding = HomePageProductItemBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -27,7 +28,6 @@ class ProductDetailsAdapter(
     override fun getItemCount(): Int {
         return productItems?.size ?: 0
     }
-
 
     override fun onBindViewHolder(holder: ProductDetailsViewHolder, position: Int) {
         productItems?.get(position)?.let { holder.bind(it, position) }
@@ -45,10 +45,8 @@ class ProductDetailsAdapter(
                 productData.image?.takeIf { it.isNotEmpty() }?.let {
                     ivProductImage.load(it)
                 }
-
             }
         }
-
     }
 
     fun updateData(data: List<ProductItem?>?) {
@@ -63,11 +61,10 @@ class ProductDetailsAdapter(
                 val queryString = constraint?.toString()?.lowercase()
 
                 val filteredList = if (queryString.isNullOrEmpty()) {
-                    items // Return original list if query is empty
+                    items
                 } else {
-                    items?.filter { item ->
-                        // Filter items based on constraint
-                        item?.product_name?.lowercase()?.contains(queryString) ?: false
+                    items?.filter {
+                        it?.product_name?.lowercase()?.contains(queryString) == true
                     }
                 }
 
@@ -83,7 +80,6 @@ class ProductDetailsAdapter(
             }
         }
     }
-
-
 }
+
 
