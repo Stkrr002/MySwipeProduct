@@ -38,14 +38,14 @@ class ProductDetailsAdapter(
                 tvProductType.text = productData.product_type
                 tvTax.text = productData.tax?.toString()
 
-                productData.image?.let {
+                productData.image?.takeIf { it.isNotEmpty() }?.let {
                     ivProductImage.load(it)
                 }
+
             }
-
         }
-    }
 
+    }
     fun updateData(data: List<ProductItem?>?) {
         productItems?.clear()
         productItems?.addAll(data ?: emptyList())
