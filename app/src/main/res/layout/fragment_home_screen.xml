@@ -54,7 +54,7 @@
                 android:maxLines="1"
                 android:padding="12dp"
                 android:singleLine="true"
-                android:textSize="10sp" />
+                android:textSize="15sp" />
 
             <ImageButton
                 android:id="@+id/imgBtnDelete"

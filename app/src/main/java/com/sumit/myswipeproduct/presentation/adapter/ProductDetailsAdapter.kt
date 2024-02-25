@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.CachePolicy
@@ -32,17 +33,18 @@ class ProductDetailsAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductDetailsViewHolder, position: Int) {
-        productItems?.get(position)?.let { holder.bind(it, position) }
+        productItems?.get(position)?.let { holder.bind(it) }
     }
 
     inner class ProductDetailsViewHolder(private val binding: HomePageProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(productData: ProductItem, position: Int) {
+        fun bind(productData: ProductItem) {
             with(binding) {
-                tvPrice.text = productData.price?.toString()
-                tvProductName.text = productData.product_name
-                tvProductType.text = productData.product_type
-                tvTax.text = productData.tax?.toString()
+                tvPrice.text = "Price: ${productData.price?.toString()}"
+                tvProductName.text = "Product Name: ${productData.product_name}"
+                tvTax.text = "Tax: ${productData.tax?.toString()}"
+                tvProductType.text = "Product Type: ${productData.product_type}"
+
 
                 if (productData.image.isEmpty()) {
                     ivProductImage.setImageResource(R.drawable.ic_products_wine)
@@ -50,6 +52,7 @@ class ProductDetailsAdapter(
                     ivProductImage.load(productData.image) {
                         memoryCachePolicy(CachePolicy.DISABLED)
                     }
+                    ivProductImage.scaleType = ImageView.ScaleType.FIT_XY
                 }
             }
         }

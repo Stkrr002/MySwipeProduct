@@ -4,62 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/ivProductImage"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:background="@drawable/rounded_rectanle_with_stroke"
+        android:padding="10dp"
         android:src="@drawable/ic_products_wine" />
 
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
+        app:cardCornerRadius="6dp"
+        android:layout_marginTop="5dp"
+        app:cardBackgroundColor="#E2DBEF"
+        app:cardUseCompatPadding="false">
 
-        <CheckedTextView
-            android:id="@+id/tvProductName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            tools:text="Almirah" />
-
-        <CheckedTextView
-            android:id="@+id/tvProductType"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:textAlignment="viewEnd"
-            android:textStyle="bold"
-            tools:text="Furniture" />
-    </LinearLayout>
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
 
+                <CheckedTextView
+                    android:id="@+id/tvProductName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    tools:text="Almirah" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
+                <CheckedTextView
+                    android:id="@+id/tvProductType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    tools:text="Furniture" />
+            </LinearLayout>
 
-        <CheckedTextView
-            android:id="@+id/tvPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="16sp"
-            tools:text="$300" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-        <CheckedTextView
-            android:id="@+id/tvTax"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:textAlignment="viewEnd"
-            tools:text="Tax: 8%" />
-    </LinearLayout>
+                <CheckedTextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    tools:text="$300" />
+
+                <CheckedTextView
+                    android:id="@+id/tvTax"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textAlignment="viewEnd"
+                    tools:text="Tax: 8%" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
     <TextView
