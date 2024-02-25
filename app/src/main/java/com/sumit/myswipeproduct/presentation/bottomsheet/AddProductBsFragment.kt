@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sumit.myswipeproduct.R
@@ -75,23 +76,43 @@ class AddProductBsFragment(private val listener: AddProductListener) : BottomShe
     }
 
     private fun bindViews() {
+        handleProductTypeSpinner()
         binding.tvSubmit.setOnClickListener {
             addProduct()
         }
     }
 
+    private fun handleProductTypeSpinner() {
+        val productTypeList = getProductTypes()
+
+        val adapter =
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                productTypeList
+            )
+        binding.actProductType.setAdapter(adapter)
+    }
+
+    private fun getProductTypes(): List<String> {
+        return listOf("Product Type 1", "Product Type 2", "Product Type 3")
+    }
+
+
     private fun addProduct() {
 
         //todo create function to validate all fields
-        val productName = binding.etProductName.text.toString()
-        val productPrice = binding.etSellingPrice.text.toString()
-        val productTax = binding.etTAx.text.toString()
+        val productName = binding.etProductName.text?.toString()
+        val productPrice = binding.etSellingPrice.text?.toString()
+        val productTax = binding.etTAx.text?.toString()
+        val productType = binding.actProductType.text?.toString()
 
-        if (productName.isNotEmpty() && productPrice.isNotEmpty() && productTax.isNotEmpty()) {
+        if (productName?.isNotEmpty() == true && productPrice?.isNotEmpty() == true && productTax?.isNotEmpty() == true && productType?.isNotEmpty() == true) {
             homeScreenViewModel.addProduct(
                 productName,
                 productPrice,
-                productTax
+                productTax,
+                productType
             )
         }
     }
