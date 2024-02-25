@@ -18,6 +18,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Add Product"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/tvProductName"
+              />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tvProductName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -78,6 +90,7 @@
             android:background="@drawable/rounded_rectangle"
             android:gravity="center"
             android:padding="15dp"
+            android:textColor="@color/black"
             android:text="Submit" />
 
     </LinearLayout>
