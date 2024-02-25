@@ -17,6 +17,7 @@ import com.sumit.myswipeproduct.connectivitychecker.NetworkChangeReceiver
 import com.sumit.myswipeproduct.databinding.FragmentHomeScreenBinding
 import com.sumit.myswipeproduct.domain.model.ProductItem
 import com.sumit.myswipeproduct.presentation.adapter.ProductDetailsAdapter
+import com.sumit.myswipeproduct.presentation.bottomsheet.AddProductBsFragment
 import com.sumit.myswipeproduct.responsehandler.APIResponse
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -105,6 +106,15 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
     private fun handleAddProduct() {
 
         //open bottom sheet to add product
+
+        binding.actionToolbarHomePage.setOnClickListener {
+            Toast.makeText(requireContext(), "Add Product", Toast.LENGTH_SHORT).show()
+            val addProductBsFragment = AddProductBsFragment.newInstance()
+            addProductBsFragment.show(
+                childFragmentManager,
+                "AddProductBsFragment"
+            )
+        }
 
 
         //listner from BS, if added product then call addProduct method of adapter

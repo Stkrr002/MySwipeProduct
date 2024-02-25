@@ -10,7 +10,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sumit.myswipeproduct.R
 import com.sumit.myswipeproduct.databinding.FragmentAddProductBsBinding
 import com.sumit.myswipeproduct.presentation.HomeScreenViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddProductBsFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentAddProductBsBinding? = null
@@ -32,12 +34,20 @@ class AddProductBsFragment : BottomSheetDialogFragment() {
         bindObservers()
     }
 
+    override fun getTheme(): Int {
+        return R.style.RoundedBottomSheetDialog
+    }
+
     private fun bindObservers() {
 
     }
 
     private fun bindViews() {
 
+    }
+
+    companion object {
+        fun newInstance() = AddProductBsFragment()
     }
 
 }
