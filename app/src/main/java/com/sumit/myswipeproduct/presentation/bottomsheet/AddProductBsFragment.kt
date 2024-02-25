@@ -42,22 +42,35 @@ class AddProductBsFragment(private val listener: AddProductListener) : BottomShe
         homeScreenViewModel.addProductData.observe(viewLifecycleOwner) {
             when (it) {
                 is APIResponse.Loading -> {
+                    dialog?.setCancelable(false)
                     binding.progressBarLayoutLoader.visibility = View.VISIBLE
                 }
 
                 is APIResponse.Success -> {
+                    handleLoadingState(false)
                     binding.progressBarLayoutLoader.visibility = View.GONE
                     listener.onProductAddedSuccess()
                     dismiss()
                 }
 
                 is APIResponse.Error -> {
+                    handleLoadingState(false)
                     binding.progressBarLayoutLoader.visibility = View.GONE
                     listener.onProductAddedFailure(it.message)
                 }
             }
         }
 
+    }
+
+    private fun handleLoadingState(isLoading: Boolean) {
+        if (isLoading) {
+            dialog?.setCancelable(false)
+            binding.progressBarLayoutLoader.visibility = View.VISIBLE
+        } else {
+            dialog?.setCancelable(true)
+            binding.progressBarLayoutLoader.visibility = View.GONE
+        }
     }
 
     private fun bindViews() {
