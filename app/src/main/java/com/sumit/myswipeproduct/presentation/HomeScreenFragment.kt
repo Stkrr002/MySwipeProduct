@@ -110,7 +110,7 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
     private fun handleAddProduct() {
 
         binding.fabAddProduct.setOnClickListener {
-             showAddProductBottomSheet()
+            showAddProductBottomSheet()
         }
 
 
@@ -131,7 +131,12 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
 
                 if (data != null) {
                     productDetailsAdapter?.addProduct(data)
-                    showNotification(requireContext(), "Product Added", "Congratulations!!, ${data.product_name} is added in the list",requireActivity())
+                    showNotification(
+                        requireContext(),
+                        "Product Added",
+                        "Congratulations!!, ${data.product_name} is added in the list",
+                        requireActivity()
+                    )
                     showProductAddStatus(data)
                 }
             }
