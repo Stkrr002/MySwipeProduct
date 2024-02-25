@@ -15,7 +15,7 @@ import com.sumit.myswipeproduct.domain.model.ProductItem
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProductAddStatusDialog : DialogFragment() {
+class ProductAddStatusDialog(private val data: ProductItem?) : DialogFragment() {
 
     private var _binding: ProductAddStatusDialogFragmentBinding? = null
     private val binding get() = _binding!!
@@ -36,6 +36,24 @@ class ProductAddStatusDialog : DialogFragment() {
         dialog?.setCanceledOnTouchOutside(true)
         dialog?.setCancelable(true)
         setStyle(STYLE_NORMAL, R.style.CustomDialog)
+
+
+        bindViews()
+    }
+
+    private fun bindViews() {
+        with(binding) {
+            data?.let {
+                tvProductName.text = "Product Name: ${it.product_name}"
+                tvProductPrice.text = "Price: ${it.price?.toString()}"
+                tvProductTax.text = "Tax: ${it.tax?.toString()}"
+                tvProductType.text = "Product Type: ${it.product_type}"
+            }
+
+            tvOkay.setOnClickListener {
+                dismiss()
+            }
+        }
     }
 
     private fun DialogFragment.setWidthPercent(percentage: Int) {
@@ -54,7 +72,7 @@ class ProductAddStatusDialog : DialogFragment() {
 
     companion object {
         fun newInstance(data: ProductItem?): ProductAddStatusDialog {
-            return ProductAddStatusDialog()
+            return ProductAddStatusDialog(data)
 
         }
     }
