@@ -6,6 +6,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.sumit.myswipeproduct.R
 import com.sumit.myswipeproduct.databinding.HomePageProductItemBinding
 import com.sumit.myswipeproduct.domain.model.ProductItem
 
@@ -42,8 +43,10 @@ class ProductDetailsAdapter(
                 tvProductType.text = productData.product_type
                 tvTax.text = productData.tax?.toString()
 
-                productData.image.takeIf { it.isNotEmpty() }?.let {
-                    ivProductImage.load(it)
+                if (productData.image.isEmpty()) {
+                    ivProductImage.load(R.drawable.ic_products_wine)
+                } else {
+                    ivProductImage.load(productData.image)
                 }
             }
         }
