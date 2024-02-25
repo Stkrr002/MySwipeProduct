@@ -45,7 +45,6 @@ class HomeScreenViewModel @Inject constructor(
     fun addProduct(productName: String, productPrice: String, productTax: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _addProductData.postValue(APIResponse.Loading())
-            delay(3000)
             val productItem = ProductItem(
                 product_name = productName,
                 product_type = "product",

@@ -18,6 +18,7 @@ import com.sumit.myswipeproduct.databinding.FragmentHomeScreenBinding
 import com.sumit.myswipeproduct.domain.model.ProductItem
 import com.sumit.myswipeproduct.presentation.adapter.ProductDetailsAdapter
 import com.sumit.myswipeproduct.presentation.bottomsheet.AddProductBsFragment
+import com.sumit.myswipeproduct.presentation.dialog.ProductAddStatusDialog
 import com.sumit.myswipeproduct.responsehandler.APIResponse
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -126,13 +127,10 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
     private fun getAddProductListener(): AddProductBsFragment.AddProductListener {
         return object : AddProductBsFragment.AddProductListener {
             override fun onProductAddedSuccess(data: ProductItem?) {
-                Toast.makeText(
-                    requireContext(),
-                    "added",
-                    Toast.LENGTH_SHORT
-                ).show()
+
                 if (data != null) {
                     productDetailsAdapter?.addProduct(data)
+                    showProductAddStatus(data)
                 }
             }
 
@@ -145,6 +143,14 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
             }
 
         }
+    }
+
+    private fun showProductAddStatus(data: ProductItem?) {
+        val productAddStatusDialog = ProductAddStatusDialog.newInstance(data)
+        productAddStatusDialog.show(
+            childFragmentManager,
+            "ProductAddStatusDialog"
+        )
     }
 
     private fun handleToolbar() {
