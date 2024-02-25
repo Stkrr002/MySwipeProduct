@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sumit.myswipeproduct.R
 import com.sumit.myswipeproduct.databinding.FragmentAddProductBsBinding
+import com.sumit.myswipeproduct.domain.model.ProductItem
 import com.sumit.myswipeproduct.presentation.HomeScreenViewModel
 import com.sumit.myswipeproduct.responsehandler.APIResponse
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,7 +50,7 @@ class AddProductBsFragment(private val listener: AddProductListener) : BottomShe
                 is APIResponse.Success -> {
                     handleLoadingState(false)
                     binding.progressBarLayoutLoader.visibility = View.GONE
-                    listener.onProductAddedSuccess()
+                    listener.onProductAddedSuccess(it.data)
                     dismiss()
                 }
 
@@ -100,7 +101,7 @@ class AddProductBsFragment(private val listener: AddProductListener) : BottomShe
     }
 
     interface AddProductListener {
-        fun onProductAddedSuccess()
+        fun onProductAddedSuccess(data: ProductItem?)
         fun onProductAddedFailure(message: String?)
     }
 

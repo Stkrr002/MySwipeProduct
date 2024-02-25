@@ -15,6 +15,7 @@ import com.sumit.myswipeproduct.R
 import com.sumit.myswipeproduct.connectivitychecker.ConnectivityChangeListener
 import com.sumit.myswipeproduct.connectivitychecker.NetworkChangeReceiver
 import com.sumit.myswipeproduct.databinding.FragmentHomeScreenBinding
+import com.sumit.myswipeproduct.domain.model.ProductItem
 import com.sumit.myswipeproduct.presentation.adapter.ProductDetailsAdapter
 import com.sumit.myswipeproduct.presentation.bottomsheet.AddProductBsFragment
 import com.sumit.myswipeproduct.responsehandler.APIResponse
@@ -124,13 +125,15 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
 
     private fun getAddProductListener(): AddProductBsFragment.AddProductListener {
         return object : AddProductBsFragment.AddProductListener {
-            override fun onProductAddedSuccess() {
+            override fun onProductAddedSuccess(data: ProductItem?) {
                 Toast.makeText(
                     requireContext(),
                     "added",
                     Toast.LENGTH_SHORT
                 ).show()
-                //   productDetailsAdapter?.addProduct(ProductItem())
+                if (data != null) {
+                    productDetailsAdapter?.addProduct(data)
+                }
             }
 
             override fun onProductAddedFailure(message: String?) {

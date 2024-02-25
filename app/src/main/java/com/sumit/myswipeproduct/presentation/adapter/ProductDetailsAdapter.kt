@@ -6,6 +6,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.request.CachePolicy
 import com.sumit.myswipeproduct.R
 import com.sumit.myswipeproduct.databinding.HomePageProductItemBinding
 import com.sumit.myswipeproduct.domain.model.ProductItem
@@ -46,21 +47,24 @@ class ProductDetailsAdapter(
                 if (productData.image.isEmpty()) {
                     ivProductImage.setImageResource(R.drawable.ic_products_wine)
                 } else {
-                    ivProductImage.load(productData.image)
+                    ivProductImage.load(productData.image) {
+                        memoryCachePolicy(CachePolicy.DISABLED)
+                    }
                 }
             }
         }
     }
 
     fun updateData(data: List<ProductItem?>?) {
-        productItems?.clear()
-        productItems?.addAll(data ?: emptyList())
+        items?.clear()
+        items?.addAll(data ?: emptyList())
         notifyDataSetChanged()
     }
 
     fun addProduct(productItem: ProductItem) {
-        productItems?.add(productItem)
-        notifyItemInserted(productItems?.size ?: 0)
+        val validIndexToAdd = if (productItems?.size == 0) 0 else 1
+        items?.add(validIndexToAdd, productItem)
+        notifyItemInserted(validIndexToAdd)
     }
 
     override fun getFilter(): Filter {
