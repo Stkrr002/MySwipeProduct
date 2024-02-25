@@ -78,9 +78,9 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
 
     private fun handleLoading(isLoading: Boolean) {
         if (isLoading) {
-            binding.shimmerFrameLayoutProductDetailsPage.visibility = View.VISIBLE
+            binding.shimmerFrameLayoutProductDetailsPage.root.visibility = View.VISIBLE
         } else {
-            binding.shimmerFrameLayoutProductDetailsPage.visibility = View.GONE
+            binding.shimmerFrameLayoutProductDetailsPage.root.visibility = View.GONE
         }
     }
 
