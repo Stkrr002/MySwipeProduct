@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sumit.myswipeproduct.R
@@ -109,7 +110,10 @@ class AddProductBsFragment(private val listener: AddProductListener) : BottomShe
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_PICK_IMAGE) {
             data?.data?.let { uri ->
                 selectedImageUri = uri
-                binding.ivProductImage.setImageURI(selectedImageUri)
+                binding.ivProductImage.setImageURI(selectedImageUri).also {
+                    binding.ivProductImage.layoutParams.height = 300
+                    binding.ivProductImage.scaleType = ImageView.ScaleType.FIT_XY
+                }
             }
         }
     }
