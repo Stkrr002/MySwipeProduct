@@ -60,7 +60,7 @@ class ProductDetailsAdapter(
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val queryString = constraint?.toString()?.lowercase()
 
-                val filteredList = if (queryString.isNullOrEmpty()) {
+                val filteredList = if (queryString.isNullOrBlank()) {
                     items
                 } else {
                     items?.filter {

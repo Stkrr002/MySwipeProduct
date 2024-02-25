@@ -103,11 +103,24 @@ class HomeScreenFragment : Fragment(), ConnectivityChangeListener {
     private fun handleSearchWidget() {
         binding.etSearchProducts.addTextChangedListener(
             onTextChanged = { text, _, _, _ ->
-                    productDetailsAdapter?.filter?.filter(text)
+                handleSearchedData(text?.toString())
+
             }
         )
     }
 
+    private fun handleSearchedData(query: String?) {
+        productDetailsAdapter?.filter?.filter(query)
+        if (query.isNullOrBlank()) {
+            binding.imgBtnDelete.visibility = View.GONE
+        } else {
+            binding.imgBtnDelete.visibility = View.VISIBLE
+        }
+        binding.imgBtnDelete.setOnClickListener {
+            binding.etSearchProducts.text?.clear()
+            binding.imgBtnDelete.visibility = View.GONE
+        }
+    }
 
     private fun setUpRecyclerViewAdapter() {
         productDetailsAdapter = ProductDetailsAdapter(mutableListOf())
