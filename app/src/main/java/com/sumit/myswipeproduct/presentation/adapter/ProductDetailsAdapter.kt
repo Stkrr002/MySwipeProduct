@@ -15,8 +15,8 @@ class ProductDetailsAdapter(
     private val items: MutableList<ProductItem?>?,
 ) : RecyclerView.Adapter<ProductDetailsAdapter.ProductDetailsViewHolder>(), Filterable {
 
-    private var productItems: MutableList<ProductItem?>?=null
-        get() = items
+    private var productItems = items
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductDetailsViewHolder {
@@ -63,8 +63,6 @@ class ProductDetailsAdapter(
     fun updateData(data: List<ProductItem?>?) {
         items?.clear()
         items?.addAll(data ?: emptyList())
-        productItems?.clear()
-        productItems?.addAll(data ?: emptyList())
         notifyDataSetChanged()
     }
 
