@@ -90,7 +90,8 @@ dependencies {
     ksp("androidx.room:room-compiler:$googleRoomDb")
     implementation("androidx.room:room-ktx:$googleRoomDb")
 
-    //coil for image loading
-    implementation("io.coil-kt:coil:1.4.0")
+    //glide image loading
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    kapt("com.github.bumptech.glide:compiler:4.12.0")
 
 }

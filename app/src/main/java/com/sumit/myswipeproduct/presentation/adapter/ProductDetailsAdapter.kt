@@ -6,8 +6,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import coil.request.CachePolicy
+import com.bumptech.glide.Glide
 import com.sumit.myswipeproduct.R
 import com.sumit.myswipeproduct.databinding.HomePageProductItemBinding
 import com.sumit.myswipeproduct.domain.model.ProductItem
@@ -49,10 +48,12 @@ class ProductDetailsAdapter(
 
                 if (productData.image.isEmpty()) {
                     ivProductImage.setImageResource(R.drawable.ic_products_wine)
+                    ivProductImage.scaleType = ImageView.ScaleType.FIT_CENTER
                 } else {
-                    ivProductImage.load(productData.image) {
-                        memoryCachePolicy(CachePolicy.DISABLED)
-                    }
+                    Glide.with(binding.root.context)
+                        .load(productData.image)
+                        .into(ivProductImage)
+
                     ivProductImage.scaleType = ImageView.ScaleType.FIT_XY
                 }
             }
