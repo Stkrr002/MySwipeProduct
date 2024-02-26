@@ -50,7 +50,6 @@
                 android:drawablePadding="12dp"
                 android:hint="Search for product"
                 android:imeOptions="actionDone"
-                android:maxLength="8"
                 android:maxLines="1"
                 android:padding="12dp"
                 android:singleLine="true"
