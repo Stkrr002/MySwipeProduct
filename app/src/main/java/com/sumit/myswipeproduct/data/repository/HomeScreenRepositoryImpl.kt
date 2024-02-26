@@ -43,6 +43,9 @@ class HomeScreenRepositoryImpl @Inject constructor(
                 call = { apiServices.getAllProducts() }
             ).also {
                 if (it is APIResponse.Success) {
+                    //clear the table before inserting new data
+                    productDao?.clearProductDetails()
+
                     val productEntityList = it.data.toProductEntityListGeneric()
                     productDao?.insert(productEntityList)
                 }
